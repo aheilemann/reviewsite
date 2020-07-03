@@ -1,7 +1,10 @@
+# syntax=docker/dockerfile:experimental
 FROM python:3.8-slim-buster
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
+ENV DOCKER_BUILDKIT 1
+ENV COMPOSE_DOCKER_CLI_BUILD 1
 
 RUN apt-get update \
   # dependencies for building Python packages
@@ -16,7 +19,8 @@ RUN apt-get update \
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements /requirements
-RUN pip install -r /requirements/local.txt
+# RUN pip install -r /requirements/local.txt
+RUN --mount=type=cache,target=/root/.cache/pip pip install -r /requirements/local.txt
 
 COPY ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
