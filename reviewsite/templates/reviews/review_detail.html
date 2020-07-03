@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Review Detail{% endblock title %}
+
+{% block content %}
+TODO: django-bootstrap-breadcrumbs
+<h2> {{ review.title }}</h2>
+<h6>Written by 
+    <a href="{% url 'users:detail' review.author.username %}">
+        {% if review.author.name %}
+            {{ review.author.name }}
+        {% else %}
+            {{ review.author.username }}
+        {% endif %}
+    </a>
+</h6>
+<br>
+{% if review.description %}
+    <p> {{ review.description }} </p>
+{% endif %}
+
+
+
+{% endblock content %}
