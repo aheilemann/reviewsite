@@ -10,5 +10,5 @@
       <li><a href="{% url 'reviews:detail' review.slug %}">{{ review.title }}</a></li>
     {% endfor %}
 </ul>
-
+<a href="{% url 'reviews:add' %}">Add Review</a>
 {% endblock content %}

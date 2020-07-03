@@ -9,20 +9,19 @@ urlpatterns = [
         view=views.ReviewListView.as_view(),
         name='list'
     ),
-    # path(route='',view=views.ReviewListView.as_view(),name='list')
-    # path(
-    #     route='add/',
-    #     view=views.ReviewCreateView.as_view(),
-    #     name='add'
-    # ),
+    path(
+        route='add/',
+        view=views.ReviewCreateView.as_view(),
+        name='add'
+    ),
     path(
         route='<slug:slug>/',
         view=views.ReviewDetailView.as_view(),
         name='detail'
     ),
-    # path(
-    #     route='<slug:slug>/update/',
-    #     view=views.ReviewUpdateView.as_view(),
-    #     name='update'
-    # ),
+    path(
+        route='<slug:slug>/update/',
+        view=views.ReviewUpdateView.as_view(),
+        name='update'
+    ),
 ]

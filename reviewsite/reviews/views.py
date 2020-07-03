@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from .models import Review
 
@@ -8,3 +9,20 @@ class ReviewListView(ListView):
 
 class ReviewDetailView(DetailView):
     model = Review
+
+class ReviewCreateView(LoginRequiredMixin, CreateView):
+    model = Review
+    fields = [
+        'author',
+        'title',
+        'description',
+    ]
+
+class ReviewUpdateView(LoginRequiredMixin, UpdateView):
+    model = Review
+    fields = [
+        'author',
+        'title',
+        'description',
+    ]
+    action = 'Update'

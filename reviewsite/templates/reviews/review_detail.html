@@ -18,7 +18,7 @@ TODO: django-bootstrap-breadcrumbs
 {% if review.description %}
     <p> {{ review.description }} </p>
 {% endif %}
-
+<a class="btn btn-primary" href="{% url 'reviews:update' review.slug %}" role="button">Edit Review</a>
 
 
 {% endblock content %}
