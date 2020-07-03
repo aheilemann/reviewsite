@@ -16,6 +16,7 @@ urlpatterns = [
     path("users/", include("reviewsite.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
+    path("reviews/", include("reviewsite.reviews.urls", namespace="reviews")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
