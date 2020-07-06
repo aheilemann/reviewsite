@@ -15,6 +15,7 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
     fields = [
         'author',
         'title',
+        'category',
         'description',
     ]
 
@@ -23,6 +24,7 @@ class ReviewUpdateView(LoginRequiredMixin, UpdateView):
     fields = [
         'author',
         'title',
+        'category',
         'description',
     ]
     action = 'Update'

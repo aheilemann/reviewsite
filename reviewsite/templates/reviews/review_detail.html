@@ -15,6 +15,12 @@ TODO: django-bootstrap-breadcrumbs
     </a>
 </h6>
 <br>
+<h6>Category:
+{% if review.category %}
+    <p> {{ review.category }} </p>
+{% endif %}
+</h6>
+<br>
 {% if review.description %}
     <p> {{ review.description }} </p>
 {% endif %}
