@@ -2,10 +2,21 @@
 
 {% block title %}Review Detail{% endblock title %}
 
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+    {% breadcrumb "Home" "/reviews" %}
+    {% breadcrumb review.category "/reviews/categories" %}
+    {% breadcrumb review.title "." %}
+
+{% endblock %}
+
 {% block content %}
-TODO: django-bootstrap-breadcrumbs
+    {% render_breadcrumbs %}
+
 <h2> {{ review.title }}</h2>
-<h6>Written by 
+<h6>By 
     <a href="{% url 'users:detail' review.author.username %}">
         {% if review.author.name %}
             {{ review.author.name }}
@@ -14,17 +25,14 @@ TODO: django-bootstrap-breadcrumbs
         {% endif %}
     </a>
 </h6>
-<br>
-<h6>Category:
-{% if review.category %}
-    <p> {{ review.category }} </p>
-{% endif %}
-</h6>
+
 <br>
 {% if review.description %}
     <p> {{ review.description }} </p>
 {% endif %}
-<a class="btn btn-primary" href="{% url 'reviews:update' review.slug %}" role="button">Edit Review</a>
 
+{% if request.user == review.author or request.user.is_superuser %}
+    <a class="btn btn-primary" href="{% url 'reviews:update' review.slug %}" role="button">Edit Review</a>
+{% endif %}
 
 {% endblock content %}
