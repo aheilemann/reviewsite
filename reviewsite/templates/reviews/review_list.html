@@ -7,7 +7,10 @@
 
 <ul>
     {% for review in review_list %}
-      <li><a href="{% url 'reviews:detail' review.slug %}">{{ review.title }}</a></li>
+      <li><a href="{% url 'reviews:detail' review.slug %}">
+        {{ review.title }} 
+        {% if review.category %} [{{review.category}}] {% endif %}
+      </a></li>
     {% endfor %}
 </ul>
 <a href="{% url 'reviews:add' %}">Add Review</a>

@@ -34,7 +34,7 @@ class Review(TimeStampedModel):
     category = models.ForeignKey(
         Category,
         null=True,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
 
     )
 
