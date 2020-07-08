@@ -1,32 +1,38 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django_tables2 import SingleTableView
+
 # Create your views here.
 from .models import Review, Category
+from .tables import ReviewTable
 
-class ReviewListView(ListView):
+
+class ReviewListView(SingleTableView):
     model = Review
-    def get_ordering(self):
-        ordering = self.request.GET.get('ordering', '-category')
-        # validate ordering here
-        return ordering
+    table_class = ReviewTable
+
 
 class ReviewDetailView(DetailView):
     model = Review
 
+
 class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
     fields = [
-        'author',
         'title',
         'category',
         'description',
     ]
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
 class ReviewUpdateView(LoginRequiredMixin, UpdateView):
     model = Review
     fields = [
-        'author',
         'title',
         'category',
         'description',

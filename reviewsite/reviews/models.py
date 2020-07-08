@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.urls import reverse
 from model_utils.models import TimeStampedModel
 
 from autoslug import AutoSlugField
@@ -28,16 +29,19 @@ class Review(TimeStampedModel):
         settings.AUTH_USER_MODEL,
         null=True,
         on_delete=models.CASCADE,
-        # limit_choices_to={'is_author': True},
     )
 
     category = models.ForeignKey(
         Category,
         null=True,
         on_delete=models.PROTECT,
-
     )
 
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        """Return absolute URL to the Review Detail page"""
+        return reverse(
+            'reviews:detail', kwargs={"slug": self.slug}
+        )
