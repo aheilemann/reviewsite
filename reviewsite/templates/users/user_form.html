@@ -4,7 +4,12 @@
 {% block title %}{{ user.username }}{% endblock %}
 
 {% block content %}
-  <h1>{{ user.username }}</h1>
+  {% if object.name %}
+    <h2>{{ object.name }}</h2>
+  {% else %}
+    <h2>{{ object.username }}</h2>
+  {% endif %}
+        <p>username: {{ object.username }}</p>
   <form class="form-horizontal" method="post" action="{% url 'users:update' %}">
     {% csrf_token %}
     {{ form|crispy }}
