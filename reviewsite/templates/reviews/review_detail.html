@@ -7,7 +7,9 @@
 {% block breadcrumbs %}
     {% clear_breadcrumbs %}
     {% breadcrumb "Home" "/reviews" %}
-    {% breadcrumb review.category "/reviews/categories" %}
+    {% with review.category.id|stringformat:"i" as category_id %}
+        {% breadcrumb review.category "/reviews/?category="|add:category_id %}
+    {% endwith %}
     {% breadcrumb review.title "." %}
 
 {% endblock %}
