@@ -4,7 +4,13 @@
 {% block title %}Review List{% endblock title %}
 
 {% block content %}
-  <h2>List of Reviews</h2>    
-  {% render_table table %}
-  <a href="{% url 'reviews:add' %}">Add Review</a>
+<h2>Reviews</h2>
+
+<form method="get">
+  {{ filter.form.as_table }}
+  <input type="submit" />
+</form>
+{% render_table table %}
+<a href="{% url 'reviews:add' %}">Add Review</a>
+
 {% endblock content %}

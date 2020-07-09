@@ -14,4 +14,5 @@ class ReviewTable(tables.Table):
         order_by = '-modified'
     
     title = tables.Column(linkify=True)
-    modified = tables.DateColumn()
+    category = tables.Column(attrs={"th": {"width": 150}})
+    modified = tables.DateColumn(attrs={"th": {"width": 150}})

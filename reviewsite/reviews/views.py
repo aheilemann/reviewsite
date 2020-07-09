@@ -1,16 +1,30 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django_tables2 import SingleTableView
+
+from django_tables2 import SingleTableView, SingleTableMixin
+from django_filters.views import FilterView
+from django_filters.filters import CharFilter
+from django_filters import FilterSet
 
 # Create your views here.
 from .models import Review, Category
 from .tables import ReviewTable
 
 
-class ReviewListView(SingleTableView):
-    model = Review
+class ReviewFilter(FilterSet):
+    title = CharFilter(lookup_expr='icontains')
+
+    class Meta:
+        model = Review
+        fields = ['category', 'title']
+
+class ReviewListView(SingleTableMixin, FilterView):
     table_class = ReviewTable
+    model = Review
+    template_name = "reviews/review_list.html"
+
+    filterset_class = ReviewFilter
 
 
 class ReviewDetailView(DetailView):
@@ -39,6 +53,3 @@ class ReviewUpdateView(LoginRequiredMixin, UpdateView):
     ]
     action = 'Update'
 
-
-class CategoryListView(ListView):
-    model = Category
