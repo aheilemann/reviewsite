@@ -15,11 +15,6 @@ urlpatterns = [
         name='add'
     ),
     path(
-        route='categories/',
-        view=views.CategoryListView.as_view(),
-        name='categoryList'
-    ),
-    path(
         route='<slug:slug>/',
         view=views.ReviewDetailView.as_view(),
         name='detail'
