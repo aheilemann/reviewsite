@@ -63,6 +63,8 @@ DJANGO_APPS = [
     "django.contrib.admin",
     "django.forms",
     "django_tables2",
+    "django_filters", 
+    #"django_markdown",
 ]
 THIRD_PARTY_APPS = [
     "crispy_forms",
