@@ -15,7 +15,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-                         
+
 
 class Review(TimeStampedModel):
     title = models.CharField("Review title", max_length=255)
@@ -24,7 +24,7 @@ class Review(TimeStampedModel):
                          unique=True,
                          always_update=False,
                          populate_from="title")
-                         
+
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,

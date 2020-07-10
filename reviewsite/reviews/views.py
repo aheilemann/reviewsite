@@ -1,14 +1,13 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from django_tables2 import SingleTableView, SingleTableMixin
+from django_tables2 import SingleTableMixin
 from django_filters.views import FilterView
 from django_filters.filters import CharFilter
 from django_filters import FilterSet
 
 # Create your views here.
-from .models import Review, Category
+from .models import Review
 from .tables import ReviewTable
 
 
@@ -52,4 +51,3 @@ class ReviewUpdateView(LoginRequiredMixin, UpdateView):
         'description',
     ]
     action = 'Update'
-
