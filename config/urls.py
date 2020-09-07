@@ -4,6 +4,13 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
+from rest_framework import routers
+from reviewsite.reviews import views
+
+# create router for backend api
+apiRouter = routers.DefaultRouter()
+apiRouter.register(r"reviews", views.ReviewViewSet)
+apiRouter.register(r"categories", views.CategoryViewSet)
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -17,6 +24,9 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
     path("reviews/", include("reviewsite.reviews.urls", namespace="reviews")),
+    path("api/", include(apiRouter.urls)),
+    path("api-auth/", include('rest_framework.urls', namespace='rest_framework')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

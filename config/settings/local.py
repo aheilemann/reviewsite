@@ -66,5 +66,5 @@ INSTALLED_APPS += ["django_extensions"]  # noqa F405
 # Your stuff...
 # ------------------------------------------------------------------------------
 if os.environ.get('RUN_MAIN') or os.environ.get('WERKZEUG_RUN_MAIN'):
-    ptvsd.enable_attach(address=('0.0.0.0', 3000), redirect_output=True)
+    ptvsd.enable_attach(address=('0.0.0.0', 3001), redirect_output=True)
     print("PTVSD attached")

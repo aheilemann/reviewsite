@@ -6,7 +6,8 @@ whitenoise==5.1.0  # https://github.com/evansd/whitenoise
 redis==3.5.0  # https://github.com/andymccurdy/redis-py
 hiredis==1.0.1  # https://github.com/redis/hiredis-py
 ptvsd==4.3.2  # https://github.com/microsoft/ptvsd
-markdown==3.2.2  # https://github.com/Python-Markdown/markdown
+react==4.3.0  # https://github.com/markfinger/python-react
+
 
 # Django
 # ------------------------------------------------------------------------------
@@ -20,4 +21,6 @@ django-autoslug==1.9.7  # https://github.com/justinmayer/django-autoslug/
 django-bootstrap-breadcrumbs==0.9.2  # https://github.com/prymitive/bootstrap-breadcrumbs
 django-tables2==2.3.1  # https://github.com/jieter/django-tables2
 django-filter==2.3.0  # https://github.com/carltongibson/django-filter
-django-markdown==0.8.4  # https://github.com/klen/django_markdown
+django-vote==2.2.0  # https://github.com/shellfly/django-vote
+djangorestframework==3.11.0  # https://github.com/encode/django-rest-framework/tree/master
+django_react_templatetags==6.0.0  # https://github.com/Frojd/django-react-templatetags

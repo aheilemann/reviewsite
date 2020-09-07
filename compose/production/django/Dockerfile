@@ -8,6 +8,10 @@ RUN apt-get update \
   && apt-get install -y build-essential \
   # psycopg2 dependencies
   && apt-get install -y libpq-dev \
+  # nodejs
+  && apt-get -y install curl gnupg \
+  && curl -sL https://deb.nodesource.com/setup_lts.x  | bash - \
+  && apt-get -y install nodejs \
   # Translations dependencies
   && apt-get install -y gettext \
   # cleaning up unused files
