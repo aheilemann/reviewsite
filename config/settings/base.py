@@ -63,8 +63,9 @@ DJANGO_APPS = [
     "django.contrib.admin",
     "django.forms",
     "django_tables2",
-    "django_filters", 
-    #"django_markdown",
+    "django_filters",
+    "vote",
+    "rest_framework",
 ]
 THIRD_PARTY_APPS = [
     "crispy_forms",
@@ -241,7 +242,7 @@ LOGGING = {
     "formatters": {
         "verbose": {
             "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
+                      "%(process)d %(thread)d %(message)s"
         }
     },
     "handlers": {
