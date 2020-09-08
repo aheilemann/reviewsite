@@ -20,7 +20,6 @@ services:
       - ./.envs/.local/.postgres
     ports:
       - "8000:8000"
-      - "3000:3000"
       - "3001:3001"
     command: /start
 
@@ -35,3 +34,21 @@ services:
       - local_postgres_data_backups:/backups
     env_file:
       - ./.envs/.local/.postgres
+
+  frontend:
+    stdin_open: true
+    image: reviewsite_local_react
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: ./compose/local/react/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - "/app/node_modules"
+      - "./frontend:/app"
+    env_file:
+      - ./.envs/.local/.react
+    depends_on:
+        - django
+    command: yarn start
