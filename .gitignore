@@ -1,6 +1,3 @@
-### FRONTEND
-frontend/
-
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -160,10 +157,6 @@ typings/
 !.vscode/launch.json
 !.vscode/extensions.json
 
-
-
-
-
 ### Windows template
 # Windows thumbnail cache files
 Thumbs.db
@@ -187,7 +180,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
 
 ### macOS template
 # General
