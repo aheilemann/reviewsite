@@ -19,7 +19,6 @@ class ReviewTable(tables.Table):
             'vote',
             'title',
             'category',
-            'created',
             'modified',
             'votes.count',
             'hotscore',
@@ -54,6 +53,5 @@ class ReviewTable(tables.Table):
 
     title = tables.Column(linkify=True)
     category = tables.Column(linkify=True, attrs={"th": {"width": 150}})
-    created = tables.DateColumn(attrs={"th": {"width": 150}})
     modified = tables.DateColumn(attrs={"th": {"width": 150}})
     hotscore = NumberColumn()
