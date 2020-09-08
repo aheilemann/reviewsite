@@ -32,8 +32,6 @@ class Review(VoteModel, TimeStampedModel):
     slug = AutoSlugField(
         "Review Address", unique=True, always_update=False, populate_from="title"
     )
-    ups = models.IntegerField("up rating count", default=0)
-    downs = models.IntegerField("down rating count", default=0)
     hotscore = models.FloatField("hot rating", default=0)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE,
@@ -42,7 +40,7 @@ class Review(VoteModel, TimeStampedModel):
     category = models.ForeignKey(Category, related_name='reviews', null=True, on_delete=models.PROTECT,)
 
     def get_hotscore(self):
-        return hot(self.ups, self.downs, self.created)
+        return hot(self.num_vote_up, self.num_vote_down, self.created)
 
     def save(self, *args, **kwargs):
         self.hotscore = self.get_hotscore()

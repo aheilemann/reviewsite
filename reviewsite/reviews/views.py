@@ -57,7 +57,6 @@ class ReviewUpdateView(LoginRequiredMixin, UpdateView):
     ]
     action = "Update"
 
-
 class ReviewViewSet(VoteMixin, ModelViewSet):
     """
     API endpoint that allows reviews to be viewed or edited.

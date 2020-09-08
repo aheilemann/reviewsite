@@ -6,6 +6,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = [
+            "id",
             "created",
             "modified",
             "title",
@@ -15,6 +16,7 @@ class ReviewSerializer(serializers.ModelSerializer):
             "author_url",
             "url",
             "category",
+            "vote_score",
         ]
 
     created = serializers.DateTimeField()
