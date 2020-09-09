@@ -1,6 +1,9 @@
 from django.db import models
 from django.conf import settings
+
 from django.urls import reverse
+
+# from rest_framework import reverse
 from model_utils.models import TimeStampedModel
 from vote.models import VoteModel
 from autoslug import AutoSlugField
@@ -37,7 +40,9 @@ class Review(VoteModel, TimeStampedModel):
         settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE,
     )
 
-    category = models.ForeignKey(Category, related_name='reviews', null=True, on_delete=models.PROTECT,)
+    category = models.ForeignKey(
+        Category, related_name="reviews", null=True, on_delete=models.PROTECT,
+    )
 
     def get_hotscore(self):
         return hot(self.num_vote_up, self.num_vote_down, self.created)
@@ -57,8 +62,8 @@ class Review(VoteModel, TimeStampedModel):
 
     def get_author_url(self):
         """Return complete URL to the Review Detail page"""
-        domain = '127.0.0.1:8000'
-        return 'http://%s%s' % (domain, self.author.get_absolute_url())
+        domain = "127.0.0.1:8000"
+        return "http://%s%s" % (domain, self.author.get_absolute_url())
 
     def get_absolute_url(self):
         """Return absolute URL to the Review Detail page"""
@@ -66,5 +71,5 @@ class Review(VoteModel, TimeStampedModel):
 
     def get_complete_url(self):
         """Return complete URL to the Review Detail page"""
-        domain = '127.0.0.1:8000'
-        return 'http://%s%s' % (domain, self.get_absolute_url())
+        domain = "127.0.0.1:8000"
+        return "http://%s%s" % (domain, self.get_absolute_url())

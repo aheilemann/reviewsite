@@ -27,6 +27,7 @@ urlpatterns = [
     path("reviews/", include("reviewsite.reviews.urls", namespace="reviews")),
     path("api/", include(apiRouter.urls)),
     path("api-auth/", include('rest_framework.urls', namespace='rest_framework')),
+    path("api/currentuser", view=views.CurrentUserView.as_view()),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
