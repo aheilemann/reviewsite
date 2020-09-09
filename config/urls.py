@@ -11,6 +11,7 @@ from reviewsite.reviews import views
 apiRouter = routers.DefaultRouter()
 apiRouter.register(r"reviews", views.ReviewViewSet)
 apiRouter.register(r"categories", views.CategoryViewSet)
+apiRouter.register(r"users", views.UserViewSet)
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),

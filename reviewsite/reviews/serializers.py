@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Review, Category
+from ..users.models import User
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -37,3 +38,18 @@ class CategorySerializer(serializers.ModelSerializer):
 
     name = serializers.CharField(max_length=100, required=True)
     reviews = serializers.StringRelatedField(many=True, read_only=True)
+
+class UserSerializer(serializers.Serializer):
+    class Meta:
+        model = User
+        fields = [
+            "id",
+            "username",
+            "name",
+            "user_url",
+        ]
+
+    id = serializers.IntegerField()
+    username = serializers.CharField()
+    name = serializers.CharField()
+    user_url = serializers.URLField(source="get_absolute_url")

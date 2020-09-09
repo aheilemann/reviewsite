@@ -5,14 +5,16 @@ from django_tables2 import SingleTableMixin
 from django_filters.views import FilterView
 from django_filters.filters import CharFilter
 from django_filters import FilterSet
-from rest_framework.viewsets import ModelViewSet
-from rest_framework import permissions
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
+# from rest_framework.views import APIView
+from rest_framework import permissions, mixins
 from vote.views import VoteMixin
 
-# Create your views here.
+from ..users.models import User
+
 from .models import Review, Category
 from .tables import ReviewTable
-from .serializers import ReviewSerializer, CategorySerializer
+from .serializers import ReviewSerializer, CategorySerializer, UserSerializer
 
 
 class ReviewFilter(FilterSet):
@@ -72,3 +74,21 @@ class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()  # .order_by('-date_joined')
     serializer_class = CategorySerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+# class CurrentUserView(APIView):
+#     def get(self, request):
+#         serializer = UserSerializer(request.user)
+#         return Response(serializer.data)
+
+class UserViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, GenericViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        pk = self.kwargs.get('pk')
+
+        if pk == "current":
+            return self.request.user
+
+        return super(UserViewSet, self).get_object()

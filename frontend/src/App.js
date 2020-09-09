@@ -3,6 +3,11 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  function handleClick(e) {
+    e.preventDefault();
+    console.log('The link was clicked.');
+  }
+
   // store reviews in a new variable
   const [reviews, setReviews] = useState([]);
 
@@ -15,13 +20,26 @@ function App() {
     fetchData()
   }, []);
 
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    let fetchData = async () => {
+      let response = await fetch('/api/users/current')
+      let json = await response.json()
+      setUser(json)
+    }
+    fetchData()
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h1>Reviews</h1>
         {reviews.map((review) => <p>
-          <a href={review.url}>{review.title}</a> (by: <a href={review.author_url}>{review.author}</a>) <br></br> {review.description}
+          <button onClick={handleClick}>VoteUP</button>
+          {user.username}
+          <a href={review.url}>{review.title}</a> (by: <a href={review.author_url}>{review.author}</a> - Votes: {review.vote_score}) <br></br> {review.description}
         </p>
         )}
         <a
