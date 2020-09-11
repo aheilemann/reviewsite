@@ -65,7 +65,7 @@ class ReviewViewSet(VoteMixin, ModelViewSet):
     API endpoint that allows reviews to be viewed or edited.
     """
 
-    queryset = Review.objects.all()  # .order_by('-date_joined')
+    queryset = Review.objects.all().order_by('-hotscore')
     serializer_class = ReviewSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
@@ -75,12 +75,16 @@ class CategoryViewSet(ModelViewSet):
     API endpoint that allows categories to be viewed or edited.
     """
 
-    queryset = Category.objects.all()  # .order_by('-date_joined')
+    queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class CurrentUserView(APIView):
+    """
+    API endpoint that allows getting current loggedIn user.
+    """
+    
     permission_classes = (permissions.IsAuthenticated,)
     def get(self, request):
         serializer = UserSerializer(request.user)
