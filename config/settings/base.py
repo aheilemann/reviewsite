@@ -66,6 +66,7 @@ DJANGO_APPS = [
     "django_filters",
     "vote",
     "rest_framework",
+    "corsheaders",
 ]
 THIRD_PARTY_APPS = [
     "crispy_forms",
@@ -130,6 +131,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -273,3 +275,6 @@ SOCIALACCOUNT_ADAPTER = "reviewsite.users.adapters.SocialAccountAdapter"
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:3000"
+]

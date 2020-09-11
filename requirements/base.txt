@@ -24,3 +24,4 @@ django-filter==2.3.0  # https://github.com/carltongibson/django-filter
 django-vote==2.2.0  # https://github.com/shellfly/django-vote
 djangorestframework==3.11.0  # https://github.com/encode/django-rest-framework/tree/master
 django_react_templatetags==6.0.0  # https://github.com/Frojd/django-react-templatetags
+django-cors-headers
