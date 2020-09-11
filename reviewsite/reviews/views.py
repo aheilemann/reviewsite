@@ -84,7 +84,7 @@ class CurrentUserView(APIView):
     """
     API endpoint that allows getting current loggedIn user.
     """
-    
+
     permission_classes = (permissions.IsAuthenticated,)
     def get(self, request):
         serializer = UserSerializer(request.user)
