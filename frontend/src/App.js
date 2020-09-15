@@ -38,16 +38,8 @@ class App extends Component {
     // .then(json => console.log(json))
   }
 
-  // loginLogout = (isLoggedIn) {
-  //   {isLoggedIn ? this.logInOut='logout' : 'login'}
-  //   <a href="http://127.0.0.1:8000/accounts/login/">{this.logInOut}</a>
-  //   <a href="http://127.0.0.1:8000/accounts/logout">{this.logInOut}</a>
-  // }
-
   render() {
-    const isLoggedIn = this.state.currentuser.name;
-    const logInOut = "login";
-    var loginButton;
+    const isLoggedIn = this.state.currentuser.username;
 
     return (
       <div className="App">
