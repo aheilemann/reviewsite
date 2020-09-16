@@ -2,6 +2,7 @@
 # https://medium.com/hacking-and-gonzo/how-reddit-ranking-algorithms-work-ef111e33d0d9
 from datetime import datetime, timezone
 from math import log
+# from .serializers import GetFullUserSerializer
 
 epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)
 
@@ -18,3 +19,10 @@ def hot(ups, downs, date):
     sign = 1 if s > 0 else -1 if s < 0 else 0
     seconds = epoch_seconds(date) - 1134028003
     return round(sign * order + seconds / 45000, 7)
+
+
+# def custom_jwt_response_handler(token, user=None, request=None):
+#     return {
+#         'token' : token,
+#         'user' : GetFullUserSerializer(user, context={'request' : request}).data
+#     }
