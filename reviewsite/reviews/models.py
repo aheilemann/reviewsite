@@ -1,9 +1,7 @@
 from django.db import models
 from django.conf import settings
-
 from django.urls import reverse
 
-# from rest_framework import reverse
 from model_utils.models import TimeStampedModel
 from vote.models import VoteModel
 from autoslug import AutoSlugField
