@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:experimental
-FROM node:14.9-alpine
+FROM node:14-alpine
 
 WORKDIR /app/
 COPY ./frontend/package.json /app/
