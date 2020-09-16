@@ -7,6 +7,7 @@ function Navbar() {
       <Link to="/">Home </Link>
       {/* <Link to="/about">About Us </Link> */}
       <Link to="/signin">Signin </Link>
+      <Link to="/signup">Signup </Link>
     </div>
   );
 };
