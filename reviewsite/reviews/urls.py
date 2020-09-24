@@ -1,4 +1,5 @@
 from django.urls import path
+from django.conf.urls import url
 
 from . import views
 
@@ -13,4 +14,6 @@ urlpatterns = [
         view=views.ReviewUpdateView.as_view(),
         name="update",
     ),
+    # path('', views.index_view),  # for the empty url
+    # url(r'^.*/$', views.index_view)  # for all other urls
 ]

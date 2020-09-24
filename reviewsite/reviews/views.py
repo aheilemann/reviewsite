@@ -1,21 +1,24 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
 from django.views.generic import CreateView, DetailView, UpdateView
 from django_filters import FilterSet
 from django_filters.filters import CharFilter
 from django_filters.views import FilterView
 # from django.http import response
 from django_tables2 import SingleTableMixin
-from rest_framework import mixins, permissions
+from rest_framework import mixins, permissions, status
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from rest_framework.response import Response
 from vote.views import VoteMixin
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from ..users.models import User
 from .models import Category, Review
 from .serializers import (ReviewSerializer, CategorySerializer, UserSerializer,
-                          UserSerializerWithToken, GetFullUserSerializer)
+                          UserSerializerWithToken, GetFullUserSerializer,
+                          CustomUserSerializer)
 from .tables import ReviewTable
 
 
@@ -118,13 +121,32 @@ def get_current_user(request):
 
 class CreateUserView(APIView):
     permission_classes = (permissions.AllowAny, )
-    def post(self, request):
-        user = request.data.get('user')
-        if not user:
-            return Response({'response' : 'error', 'message' : 'No data found'})
-        serializer = UserSerializerWithToken(data=user)
+    authentication_classes = ()
+
+    def post(self, request, format='json'):
+        serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
-            saved_user = serializer.save()
-        else:
-            return Response({"response" : "error", "message" : serializer.errors})
-        return Response({"response" : "success", "message" : "user created succesfully"})
+            user = serializer.save()
+            if user:
+                json = serializer.data
+                return Response(json, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class HelloWorldView(APIView):
+
+    def get(self, request):
+        return Response(data={"hello":"You are logged in!"}, status=status.HTTP_200_OK)
+
+
+class LogoutAndBlacklistRefreshTokenForUserView(APIView):
+    permission_classes = (permissions.AllowAny,)
+    authentication_classes = ()
+
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh_token"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

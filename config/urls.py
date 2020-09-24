@@ -5,6 +5,7 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework import routers
+
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -31,12 +32,14 @@ urlpatterns = [
     path("reviews/", include("reviewsite.reviews.urls", namespace="reviews")),
     path("api/", include(apiRouter.urls)),
     path("api-auth/", include('rest_framework.urls', namespace='rest_framework')),
-    path("api/currentuser", view=views.CurrentUserView.as_view()),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path("api/currentuser", views.CurrentUserView.as_view()),
+    path('api/token/obtain/', TokenObtainPairView.as_view(), name='token_create'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/current_user/', view=views.get_current_user),
-    path('api/users/create', view=views.CreateUserView.as_view()),
-
+    path('api/user/current/', views.get_current_user),
+    path('api/user/create/', views.CreateUserView.as_view(), name="create_user"),
+    path('api/hello/', views.HelloWorldView.as_view(), name='hello_world'),
+    path('api/blacklist/', views.LogoutAndBlacklistRefreshTokenForUserView.as_view(), name='blacklist')
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
