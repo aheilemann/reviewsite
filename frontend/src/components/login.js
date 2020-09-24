@@ -1,60 +1,64 @@
 import React, { Component } from "react";
 import axiosInstance from "../axiosApi";
 
-class Signup extends Component{
-    constructor(props){
+class Login extends Component {
+    constructor(props) {
         super(props);
-        this.state = {
-            username: "",
-            password: "",
-            email:"",
-            errors:{}
-        };
+        this.state = {username: "", password: ""};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmitWThen = this.handleSubmitWThen.bind(this);
     }
 
     handleChange(event) {
         this.setState({[event.target.name]: event.target.value});
     }
 
+    handleSubmitWThen(event){
+        event.preventDefault();
+        axiosInstance.post('/token/obtain/', {
+                username: this.state.username,
+                password: this.state.password
+            }).then(
+                result => {
+                    axiosInstance.defaults.headers['Authorization'] = "JWT " + result.data.access;
+                    localStorage.setItem('access_token', result.data.access);
+                    localStorage.setItem('refresh_token', result.data.refresh);
+                }
+            ).catch (error => {
+                throw error;
+            })
+    }
+
     async handleSubmit(event) {
         event.preventDefault();
         try {
-            const response = await axiosInstance.post('/user/create/', {
+            const response = await axiosInstance.post('/token/obtain/', {
                 username: this.state.username,
-                email: this.state.email,
                 password: this.state.password
             });
+            axiosInstance.defaults.headers['Authorization'] = "JWT " + response.data.access;
+            localStorage.setItem('access_token', response.data.access);
+            localStorage.setItem('refresh_token', response.data.refresh);
             return response;
         } catch (error) {
-            console.log(error.stack);
-            this.setState({
-                errors:error.response.data
-            });
+            throw error;
         }
     }
 
     render() {
         return (
             <div>
-                Signup
+                Login
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         Username:
                         <input name="username" type="text" value={this.state.username} onChange={this.handleChange}/>
-                        { this.state.errors.username ? this.state.errors.username : null}
-                    </label>
-                    <label>
-                        Email:
-                        <input name="email" type="email" value={this.state.email} onChange={this.handleChange}/>
-                        { this.state.errors.email ? this.state.errors.email : null}
                     </label>
                     <label>
                         Password:
                         <input name="password" type="password" value={this.state.password} onChange={this.handleChange}/>
-                        { this.state.errors.password ? this.state.errors.password : null}
                     </label>
                     <input type="submit" value="Submit"/>
                 </form>
@@ -62,5 +66,4 @@ class Signup extends Component{
         )
     }
 }
-
-export default Signup;
+export default Login;
