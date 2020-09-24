@@ -2,8 +2,9 @@
 Base settings to build other settings files upon.
 """
 from pathlib import Path
-
+from datetime import timedelta
 import environ
+
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # reviewsite/
@@ -67,7 +68,7 @@ DJANGO_APPS = [
     "vote",
     "rest_framework",
     "corsheaders",
-    "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
 ]
 THIRD_PARTY_APPS = [
     "crispy_forms",
@@ -100,9 +101,9 @@ AUTHENTICATION_BACKENDS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
 # # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = "users:redirect"
+# LOGIN_REDIRECT_URL = "users:redirect"
 # # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-LOGIN_URL = "account_login"
+# LOGIN_URL = "account_login"
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -286,14 +287,24 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
-JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER' :   'utils.custom_jwt_response_handler'
+SECRET_KEY = env(
+    "DJANGO_SECRET_KEY",
+    default="Lb9eOJIgvFdt6qjypTb3lUJQUjkimR53qmu6O09p2MzuBBbh53GHpMBQ9JgYxVLV",
+)
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=14),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
 }
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
-
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:3000"
-]
-CORS_ALLOW_CREDENTIALS = True

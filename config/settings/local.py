@@ -1,7 +1,8 @@
+import os
+import ptvsd
 from .base import *  # noqa
 from .base import env
-import ptvsd
-import os
+
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -68,3 +69,8 @@ INSTALLED_APPS += ["django_extensions"]  # noqa F405
 if os.environ.get('RUN_MAIN') or os.environ.get('WERKZEUG_RUN_MAIN'):
     ptvsd.enable_attach(address=('0.0.0.0', 3001), redirect_output=True)
     print("PTVSD attached")
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:3000"
+]
+CORS_ALLOW_CREDENTIALS = True
